@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_allgemein"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Allgemein" />
+        <item
+            android:id="@+id/nav_licht"
+            android:icon="@drawable/ic_wb_incandescent_black_24dp"
+            android:title="Licht" />
+        <item
+            android:id="@+id/nav_multimedia"
+            android:icon="@drawable/ic_desktop_windows_black_24dp"
+            android:title="Multimedia" />
+        <item
+            android:id="@+id/nav_verstaerker"
+            android:icon="@drawable/ic_headset_black_24dp"
+            android:title="Verstärker" />
+        <item
+            android:id="@+id/nav_effekte"
+            android:icon="@drawable/ic_star_half_black_24dp"
+            android:title="Effekte" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_ueber"
+                android:icon="@drawable/ic_copyright_black_24dp"
+                android:title="Über" />
+            <item
+                android:id="@+id/nav_beenden"
+                android:icon="@drawable/ic_cancel_black_24dp"
+                android:title="Beenden" />
+
+        </menu>
+    </item>
+
+</menu>

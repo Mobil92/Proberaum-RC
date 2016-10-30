@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Proberaum RC</string>
+    <string name="action_settings">Beenden</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_draw">Proberaum RC</string>
+    <string name="title_activity_effekte">Effekte</string>
+    <string name="title_activity_licht">Licht</string>
+    <string name="title_activity_multimedia">Multimedia</string>
+    <string name="title_activity_verstaerker">Verstärker</string>
+    <string name="title_activity_ueber">Über</string>
+</resources>

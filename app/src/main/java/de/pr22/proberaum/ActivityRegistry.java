@@ -5,7 +5,6 @@ import android.app.Activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.R.id.list;
 
 class ActivityRegistry {
     private static List<Activity> _activities;

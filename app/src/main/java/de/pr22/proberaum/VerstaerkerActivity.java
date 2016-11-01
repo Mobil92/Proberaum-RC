@@ -1,5 +1,7 @@
 package de.pr22.proberaum;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -9,8 +11,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.widget.Button;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class VerstaerkerActivity extends Refactoring
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    static Map mapSQLNeu = new HashMap();
+    private Button buttonVerstaerkerAn;
+    private Button buttonVerstaerkerAus;
+    private Button buttonEingaengePc;
+    private Button buttonEingaengeBt;
+    private Button buttonStereoLogic7;
+    private Button buttonStereoStereo;
+    private Button buttonSurroundDolby;
+
+    public VerstaerkerActivity() {
+    }
+
+    public VerstaerkerActivity(sql sql) {
+        super();
+        mapSQLNeu.putAll(sql.mapSQL);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +51,14 @@ public class VerstaerkerActivity extends Refactoring
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Button buttonVerstaerkerAn = (Button) findViewById(R.id.buttonVerstaerkerAn);
-        Button buttonVerstaerkerAus = (Button) findViewById(R.id.buttonVerstaerkerAus);
+        buttonVerstaerkerAn = (Button) findViewById(R.id.buttonVerstaerkerAn);
+        buttonVerstaerkerAus = (Button) findViewById(R.id.buttonVerstaerkerAus);
+        if (mapSQLNeu.get("verstaerker").equals("1")) {
+            buttonVerstaerkerAn.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        else {
+            buttonVerstaerkerAus.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
         Button buttonVolume1Down = (Button) findViewById(R.id.buttonVolume1Down);
         Button buttonVolume1Up = (Button) findViewById(R.id.buttonVolume1Up);
         Button buttonVolume4Down = (Button) findViewById(R.id.buttonVolume4Down);
@@ -38,11 +67,30 @@ public class VerstaerkerActivity extends Refactoring
         Button buttonPcVolumeMax = (Button) findViewById(R.id.buttonPcVolumeMax);
         Button buttonMute = (Button) findViewById(R.id.buttonMute);
         Button buttonPlay = (Button) findViewById(R.id.buttonPlay);
-        Button buttonEingaengePc = (Button) findViewById(R.id.buttonEingaengePc);
-        Button buttonEingaengeBt = (Button) findViewById(R.id.buttonEingaengeBt);
-        Button buttonStereoLogic7 = (Button) findViewById(R.id.buttonStereoLogic7);
-        Button buttonStereoStereo = (Button) findViewById(R.id.buttonStereoStereo);
-        Button buttonSurroundDolby = (Button) findViewById(R.id.buttonSurroundDolby);
+        buttonEingaengePc = (Button) findViewById(R.id.buttonEingaengePc);
+        buttonEingaengeBt = (Button) findViewById(R.id.buttonEingaengeBt);
+        if (mapSQLNeu.get("eingaenge").equals("1")) {
+            buttonEingaengePc.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        else {
+            buttonEingaengeBt.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        buttonStereoLogic7 = (Button) findViewById(R.id.buttonStereoLogic7);
+        buttonStereoStereo = (Button) findViewById(R.id.buttonStereoStereo);
+        if (mapSQLNeu.get("stereo").equals("1")) {
+            buttonStereoLogic7.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        else if(mapSQLNeu.get("stereo").equals("2")) {
+
+        }
+        else {
+            buttonStereoStereo.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        buttonSurroundDolby = (Button) findViewById(R.id.buttonSurroundDolby);
+        if (mapSQLNeu.get("dolby").equals("1")) {
+            buttonSurroundDolby.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+
 
         buttonVerstaerkerAn.setOnClickListener(new View.OnClickListener() {
 
@@ -50,6 +98,8 @@ public class VerstaerkerActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/verstärker.php?ein=ON";
                 connect(urlLink, v);
+                buttonChangeColor(buttonVerstaerkerAn);
+                buttonChangeColor2(buttonVerstaerkerAus);
             }
 
         });
@@ -59,6 +109,8 @@ public class VerstaerkerActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/verstärker.php?aus=OFF";
                 connect(urlLink, v);
+                buttonChangeColor(buttonVerstaerkerAus);
+                buttonChangeColor2(buttonVerstaerkerAn);
             }
 
         });
@@ -140,6 +192,8 @@ public class VerstaerkerActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/verstärker.php?video1=PC";
                 connect(urlLink, v);
+                buttonChangeColor(buttonEingaengePc);
+                buttonChangeColor2(buttonEingaengeBt);
             }
 
         });
@@ -149,6 +203,8 @@ public class VerstaerkerActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/verstärker.php?video2=BT";
                 connect(urlLink, v);
+                buttonChangeColor(buttonEingaengeBt);
+                buttonChangeColor2(buttonEingaengePc);
             }
 
         });
@@ -158,6 +214,9 @@ public class VerstaerkerActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/verstärker.php?logic7=Logic7";
                 connect(urlLink, v);
+                buttonChangeColor(buttonStereoLogic7 );
+                buttonChangeColor2(buttonStereoStereo);
+                buttonChangeColor2(buttonSurroundDolby);
             }
 
         });
@@ -167,6 +226,9 @@ public class VerstaerkerActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/verstärker.php?stereo=Stereo";
                 connect(urlLink, v);
+                buttonChangeColor(buttonStereoStereo);
+                buttonChangeColor2(buttonStereoLogic7);
+                buttonChangeColor2(buttonSurroundDolby);
             }
 
         });
@@ -176,6 +238,9 @@ public class VerstaerkerActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/verstärker.php?dolby=Dolby";
                 connect(urlLink, v);
+                buttonChangeColor(buttonSurroundDolby);
+                buttonChangeColor2(buttonStereoLogic7);
+                buttonChangeColor2(buttonStereoStereo);
             }
 
         });

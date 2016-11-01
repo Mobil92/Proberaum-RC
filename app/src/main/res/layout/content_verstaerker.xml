@@ -20,14 +20,14 @@
         <android.support.constraint.ConstraintLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:text="Verstärker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textViewVerstaerker"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="28dp"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="16dp"
                 app:layout_constraintLeft_toLeftOf="parent" />
@@ -59,7 +59,7 @@
                 android:id="@+id/textViewVolume1"
                 android:layout_marginStart="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="37dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewVerstaerker" />
 
             <Button
@@ -89,7 +89,7 @@
                 android:id="@+id/textViewVolume4"
                 android:layout_marginStart="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="37dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewVolume1" />
 
             <Button
@@ -120,7 +120,7 @@
                 android:id="@+id/textViewPcVolume"
                 android:layout_marginStart="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="37dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewVolume4" />
 
             <Button
@@ -151,7 +151,7 @@
                 android:id="@+id/textViewMutePlay"
                 android:layout_marginStart="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="37dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewPcVolume" />
 
             <Button
@@ -182,7 +182,7 @@
                 android:id="@+id/textViewEingaenge"
                 android:layout_marginStart="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="37dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMutePlay" />
 
             <Button
@@ -213,7 +213,7 @@
                 android:id="@+id/textViewStereo"
                 android:layout_marginStart="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="37dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewEingaenge" />
 
             <Button
@@ -244,7 +244,7 @@
                 android:id="@+id/textViewSurround"
                 android:layout_marginStart="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="37dp"
                 app:layout_constraintTop_toBottomOf="@+id/textViewStereo" />
 
             <Button

@@ -4,8 +4,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,13 +20,35 @@ import android.widget.Button;
 public class DrawActivity extends Refactoring
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private Button buttonLichtAn;
+    private Button buttonLichtAus;
+    private Button buttonLüfter15Min;
+    private Button buttonLuefterAn;
+    private Button buttonLuefterAus;
+    private Button buttonAllesAus;
+    private Button buttonPcAn;
+    private Button buttonPcAus;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Allgemein");
+
+        sql sql = new sql();
+        sql.sqlSelect();
+        LichtActivity licht = new LichtActivity(sql);
+        MultimediaActivity multimedia = new MultimediaActivity(sql);
+        VerstaerkerActivity verstaerker = new VerstaerkerActivity(sql);
+        EffekteActivity effekte = new EffekteActivity(sql);
+
+        try {
+            getSupportActionBar().setTitle("Allgemein");
+        } catch (Exception e) {
+            Log.e("setTitle", Log.getStackTraceString(e));
+        }
         ActivityRegistry.register(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -34,16 +59,40 @@ public class DrawActivity extends Refactoring
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        Button buttonLichtAn = (Button) findViewById(R.id.buttonLichtAn);
-        Button buttonLichtAus = (Button) findViewById(R.id.buttonLichtAus);
+        buttonLichtAn = (Button) findViewById(R.id.buttonLichtAn);
+        buttonLichtAus = (Button) findViewById(R.id.buttonLichtAus);
+        if (sql.mapSQL.get("licht").equals("1")) {
+            buttonLichtAn.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        else {
+            buttonLichtAus.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
         Button buttonTuerOeffner = (Button) findViewById(R.id.buttonTuerOeffner);
         Button buttonNotaus = (Button) findViewById(R.id.buttonNotaus);
-        Button buttonLüfter15Min = (Button) findViewById(R.id.buttonLüfter15Min);
-        Button buttonLuefterAn = (Button) findViewById(R.id.buttonLuefterAn);
-        Button buttonLuefteraus = (Button) findViewById(R.id.buttonLuefteraus);
-        Button buttonAllesAus = (Button) findViewById(R.id.buttonAllesAus);
-        Button buttonPcAn = (Button) findViewById(R.id.buttonPcAn);
-        Button buttonPcAus = (Button) findViewById(R.id.buttonPcAus);
+        buttonLüfter15Min = (Button) findViewById(R.id.buttonLüfter15Min);
+        if (sql.mapSQL.get("luefter15min").equals("1")) {
+            buttonLüfter15Min.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        buttonLuefterAn = (Button) findViewById(R.id.buttonLuefterAn);
+        buttonLuefterAus = (Button) findViewById(R.id.buttonLuefteraus);
+        if (sql.mapSQL.get("luefter").equals("1")) {
+            buttonLuefterAn.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        else {
+            buttonLuefterAus.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        buttonAllesAus = (Button) findViewById(R.id.buttonAllesAus);
+        if (sql.mapSQL.get("allesAus").equals("1")) {
+            buttonAllesAus.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        buttonPcAn = (Button) findViewById(R.id.buttonPcAn);
+        buttonPcAus = (Button) findViewById(R.id.buttonPcAus);
+        if (sql.mapSQL.get("pc").equals("1")) {
+            buttonPcAn.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
+        else {
+            buttonPcAus.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+        }
 
         buttonLichtAn.setOnClickListener(new View.OnClickListener() {
 
@@ -51,6 +100,8 @@ public class DrawActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/lichtan.php?an=Licht an!";
                 connect(urlLink, v);
+                buttonChangeColor(buttonLichtAn);
+                buttonChangeColor2(buttonLichtAus);
             }
 
         });
@@ -60,6 +111,8 @@ public class DrawActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/lichtaus.php?aus=Licht aus!";
                 connect(urlLink, v);
+                buttonChangeColor(buttonLichtAus);
+                buttonChangeColor2(buttonLichtAn);
             }
 
         });
@@ -87,6 +140,7 @@ public class DrawActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/lüfteran.php?anlang=Lüfter 15min!";
                 connect(urlLink, v);
+                buttonChangeColor(buttonLüfter15Min);
                 leisteLuefter();
             }
 
@@ -97,15 +151,20 @@ public class DrawActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/lüfteran.php?an=ON";
                 connect(urlLink, v);
+                buttonChangeColor(buttonLuefterAn);
+                buttonChangeColor2(buttonLuefterAus);
             }
 
         });
-        buttonLuefteraus.setOnClickListener(new View.OnClickListener() {
+        buttonLuefterAus.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/lüfteraus.php?aus=OFF";
                 connect(urlLink, v);
+                buttonChangeColor(buttonLuefterAus);
+                buttonChangeColor2(buttonLuefterAn);
+                buttonChangeColor2(buttonLüfter15Min);
             }
 
         });
@@ -115,6 +174,7 @@ public class DrawActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/ausschalten.php?aus=Alles Ausschalten!";
                 connect(urlLink, v);
+                buttonChangeColor(buttonAllesAus);
                 leisteShutdown();
             }
 
@@ -125,6 +185,8 @@ public class DrawActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/pcan.php?an=ON";
                 connect(urlLink, v);
+                buttonChangeColor(buttonPcAn);
+                buttonChangeColor2(buttonPcAus);
             }
 
         });
@@ -134,6 +196,8 @@ public class DrawActivity extends Refactoring
             public void onClick(View v) {
                 urlLink = "http://192.168.1.37:80/pcaus.php?aus=OFF";
                 connect(urlLink, v);
+                buttonChangeColor(buttonPcAus);
+                buttonChangeColor2(buttonPcAn);
             }
 
         });

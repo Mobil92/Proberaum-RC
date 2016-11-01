@@ -1,6 +1,8 @@
 package de.pr22.proberaum;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.StrictMode;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
@@ -9,15 +11,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class Refactoring extends AppCompatActivity {
+class Refactoring extends AppCompatActivity {
 
-    public String urlLink = "";
+    String urlLink = "";
 
     @SuppressWarnings("StatementWithEmptyBody")
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -59,7 +62,7 @@ public class Refactoring extends AppCompatActivity {
         return true;
     }
 
-    public void connect(final String urlLink, final View v) {
+    void connect(final String urlLink, final View v) {
         Runnable runnable = new Runnable() {
             public void run() {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -108,5 +111,13 @@ public class Refactoring extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void buttonChangeColor(Button button) {
+        button.getBackground().setColorFilter(Color.rgb(255,20,147), PorterDuff.Mode.MULTIPLY);
+    }
+
+    public void buttonChangeColor2(Button button) {
+        button.getBackground().setColorFilter(Color.rgb(207,207,207), PorterDuff.Mode.MULTIPLY);
     }
 }
